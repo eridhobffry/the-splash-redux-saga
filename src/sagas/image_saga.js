@@ -1,5 +1,5 @@
 import { put, call, takeEvery, takeLatest, select } from "redux-saga/effects";
-import { IMAGES } from "../actions";
+import { IMAGES } from "../constants";
 
 export default function* watcherImage() {
   yield takeEvery("HALLO", handleImageLoad);
