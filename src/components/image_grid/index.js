@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { connect } from "react-redux";
-
+import { ButtonComponent } from "../button";
 import PropTypes from "prop-types";
 
 import {
@@ -13,9 +13,9 @@ import {
 import { loadImages } from "../../actions";
 
 const ImageGrid = props => {
-  useEffect = () => {
+  useEffect(() => {
     loadImages();
-  };
+  });
 
   const { isLoading, images, loadImages, error, imageStats } = props;
 
@@ -27,19 +27,27 @@ const ImageGrid = props => {
   };
 
   return (
-    <Content>
-      <Grid>
-        {images.map(image => (
-          <Item
-            key={image.id}
-            gridRow={`${Math.ceil(image.height / image.width)}`}
-          >
-            <Image src={image.urls.small} alt={image.user.username}></Image>
-          </Item>
-        ))}
-      </Grid>
-      {error && <ErrorParagraph>{JSON.stringify(error)}</ErrorParagraph>}
-    </Content>
+    <Fragment>
+      <Content>
+        <Grid>
+          {images.map(image => (
+            <Item
+              key={image.id}
+              gridRow={`${Math.ceil(image.height / image.width)}`}
+            >
+              <Image src={image.urls.small} alt={image.user.username}></Image>
+            </Item>
+          ))}
+        </Grid>
+        {error && <ErrorParagraph>{JSON.stringify(error)}</ErrorParagraph>}
+      </Content>
+      <ButtonComponent
+        onClick={() => !isLoading && loadImages()}
+        loading={isLoading}
+      >
+        Load more
+      </ButtonComponent>
+    </Fragment>
   );
 };
 

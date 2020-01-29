@@ -16,5 +16,11 @@ export const configureStore = () => {
   );
 
   sagaMiddleware.run(rootSaga);
+
+  //TEST
+  store.dispatch({ type: "HALLO" });
+  store.dispatch({ type: "HALLO" });
+  store.dispatch({ type: "HALLO" });
+
   return store;
 };
