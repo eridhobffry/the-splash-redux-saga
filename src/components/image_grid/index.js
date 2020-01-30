@@ -11,19 +11,13 @@ import {
   ErrorParagraph
 } from "../../style/image_grid_style";
 import { loadImages } from "../../actions";
+import { Stats } from "../stats";
 
 const ImageGrid = props => {
+  const { isLoading, images, loadImages, error, imageStats } = props;
   useEffect(() => {
-    props.loadImages();
-    // const URL = process.env.URL_BASE;
-    // const KEY = process.env.KEY;
-    // fetch(`${URL}${KEY}&per_page=3`)
-    // .then(res => res.json())
-    // .then(images => {
-    // 	props
-    // })
+    loadImages();
   });
-  // const { isLoading, images, loadImages, error, imageStats } = props;
 
   ImageGrid.propTypes = {
     isLoading: PropTypes.bool.isRequired,
@@ -32,32 +26,21 @@ const ImageGrid = props => {
     imageStats: PropTypes.object
   };
 
-  const ItemImage = props.images.map(image => (
+  const ItemImage = images.map(image => (
     <Item key={image.id} gridRow={`${Math.ceil(image.height / image.width)}`}>
-      <Image src={image.urls.small} alt={image.user.username}></Image>
+      <Stats stats={imageStats[image.id]}></Stats>
+      <Image src={image.urls.small} alt={image.user.username} />
     </Item>
   ));
 
   return (
     <Fragment>
       <Content>
-        <Grid>
-          {ItemImage}
-          {/* {props.images.map(image => (
-            <Item
-              key={image.id}
-              gridRow={`${Math.ceil(image.height / image.width)}`}
-            >
-              <Image src={image.urls.small} alt={image.user.username}></Image>
-            </Item>
-          ))} */}
-        </Grid>
-        {props.error && (
-          <ErrorParagraph>{JSON.stringify(props.error)}</ErrorParagraph>
-        )}
+        <Grid></Grid>
+        {error && <ErrorParagraph>{JSON.stringify(error)}</ErrorParagraph>}
         <ButtonComponent
-          onClick={() => !props.isLoading && loadImages()}
-          loading={props.isLoading}
+          onClick={() => !isLoading && loadImages()}
+          loading={isLoading}
         >
           Load more
         </ButtonComponent>
