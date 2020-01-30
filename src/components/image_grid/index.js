@@ -36,7 +36,7 @@ const ImageGrid = props => {
   return (
     <Fragment>
       <Content>
-        <Grid></Grid>
+        <Grid>{ItemImage}</Grid>
         {error && <ErrorParagraph>{JSON.stringify(error)}</ErrorParagraph>}
         <ButtonComponent
           onClick={() => !isLoading && loadImages()}
