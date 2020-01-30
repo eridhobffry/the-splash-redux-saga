@@ -55,13 +55,13 @@ const ImageGrid = props => {
         {props.error && (
           <ErrorParagraph>{JSON.stringify(props.error)}</ErrorParagraph>
         )}
+        <ButtonComponent
+          onClick={() => !props.isLoading && loadImages()}
+          loading={props.isLoading}
+        >
+          Load more
+        </ButtonComponent>
       </Content>
-      <ButtonComponent
-        onClick={() => !props.isLoading && loadImages()}
-        loading={props.isLoading}
-      >
-        Load more
-      </ButtonComponent>
     </Fragment>
   );
 };
