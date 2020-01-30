@@ -1,5 +1,5 @@
 // const URL = process.env.URL_BASE;
-// const KEY = process.env.KEY;
+// const KEY = process.env.API_ACCESS_KEY;
 
 // export const fetchImage = async page => {
 //   const response = await fetch(`${URL}${KEY}&per_page=3&page=${page}`);
@@ -18,6 +18,7 @@ const URL = `https://api.unsplash.com/photos/`;
 
 export const fetchImage = async page => {
   const response = await fetch(`${URL}${KEY}&per_page=3&page=${page}`);
+
   const data = await response.json();
   if (response.status >= 400) {
     throw new Error(data.errors);
