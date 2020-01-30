@@ -15,9 +15,15 @@ import { loadImages } from "../../actions";
 const ImageGrid = props => {
   useEffect(() => {
     loadImages();
+    // const URL = process.env.URL_BASE;
+    // const KEY = process.env.KEY;
+    // fetch(`${URL}${KEY}&per_page=3`)
+    // .then(res => res.json())
+    // .then(images => {
+    // 	props
+    // })
   });
-
-  const { isLoading, images, loadImages, error, imageStats } = props;
+  // const { isLoading, images, loadImages, error, imageStats } = props;
 
   ImageGrid.propTypes = {
     isLoading: PropTypes.bool.isRequired,
@@ -26,24 +32,33 @@ const ImageGrid = props => {
     imageStats: PropTypes.object
   };
 
+  const ItemImage = props.images.map(image => (
+    <Item key={image.id} gridRow={`${Math.ceil(image.height / image.width)}`}>
+      <Image src={image.urls.small} alt={image.user.username}></Image>
+    </Item>
+  ));
+
   return (
     <Fragment>
       <Content>
         <Grid>
-          {images.map(image => (
+          {ItemImage}
+          {/* {props.images.map(image => (
             <Item
               key={image.id}
               gridRow={`${Math.ceil(image.height / image.width)}`}
             >
               <Image src={image.urls.small} alt={image.user.username}></Image>
             </Item>
-          ))}
+          ))} */}
         </Grid>
-        {error && <ErrorParagraph>{JSON.stringify(error)}</ErrorParagraph>}
+        {props.error && (
+          <ErrorParagraph>{JSON.stringify(props.error)}</ErrorParagraph>
+        )}
       </Content>
       <ButtonComponent
-        onClick={() => !isLoading && loadImages()}
-        loading={isLoading}
+        onClick={() => !props.isLoading && loadImages()}
+        loading={props.isLoading}
       >
         Load more
       </ButtonComponent>
@@ -51,9 +66,9 @@ const ImageGrid = props => {
   );
 };
 
-const mapStateToProps = ({ isLoading, image, error, imageStats }) => ({
+const mapStateToProps = ({ isLoading, images = [], error, imageStats }) => ({
   isLoading,
-  image,
+  images,
   error,
   imageStats
 });
