@@ -14,7 +14,7 @@ import { loadImages } from "../../actions";
 
 const ImageGrid = props => {
   useEffect(() => {
-    loadImages();
+    props.loadImages();
     // const URL = process.env.URL_BASE;
     // const KEY = process.env.KEY;
     // fetch(`${URL}${KEY}&per_page=3`)

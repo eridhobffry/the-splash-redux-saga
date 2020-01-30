@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { Provider } from "react-redux";
 
 import HeaderComponet from "./components/header";
-import ImageGrid from "./components/image_grid/";
+import ImageGrid from "./components/image_grid/image_grid_ori";
 
 import { configureStore } from "./store";
 
